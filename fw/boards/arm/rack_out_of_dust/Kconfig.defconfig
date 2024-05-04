@@ -1,0 +1,13 @@
+# Copyright (c) 2024 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_RACK_OUT_OF_DUST
+
+config BOARD
+	default "rack_out_of_dust"
+
+config BT_CTLR
+   default BT
+
+
+endif
