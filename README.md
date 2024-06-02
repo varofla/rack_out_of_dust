@@ -5,6 +5,8 @@
 
 24/7 중노동을 하는 홈랩 서버에게 인권..아니 서권을 마련해주는 프로젝트입니다.
 
+![picture](https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6ab14156-98e0-4fc6-be53-da5aaa7a261b%2F96a37644-ac96-40e9-9ced-3b8d84d620bf%2FIMG_2703.jpeg&blockId=838cca7c-bff1-406e-8634-9c1981455317)
+
 # 구성
 
 - SoC: nRF52840
