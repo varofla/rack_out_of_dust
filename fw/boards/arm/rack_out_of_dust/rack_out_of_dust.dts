@@ -21,7 +21,7 @@
 		compatible = "gpio-keys";
 		button: button {
 			label = "button";
-			gpios = <&gpio0 31 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
 		};
 	};
 
@@ -33,7 +33,7 @@
 	};
 
 	zephyr,user {
-		fan4p_speed_feedback-gpios = <&gpio0 3 0>;
+		fan4p_speed_feedback-gpios = <&gpio0 6 0>;
 		pwms = <&pwm0 0 PWM_USEC(40) 0>;
 	};
 
@@ -115,11 +115,11 @@
 	pinctrl-0 = <&i2c0_default>;
 	pinctrl-1 = <&i2c0_sleep>;
 	pinctrl-names = "default", "sleep";
-	// sht4x@44 {
-		//   compatible = "sensirion,sht4x";
-		//   repeatability = <2>;
-		//   reg = <0x44>;
-	// };
+	sht4x@44 {
+		compatible = "sensirion,sht4x";
+		repeatability = <2>;
+		reg = <0x44>;
+	};
 	am2320: am2320@5c {
 		compatible = "i2c-device";
 		status = "okay";
@@ -131,7 +131,7 @@
 &pinctrl {
 	pwm0_default: pwm0_default {
 		group1 {
-			psels = <NRF_PSEL(PWM_OUT0, 0, 4)>, <NRF_PSEL(PWM_OUT1, 0, 30)>;
+			psels = <NRF_PSEL(PWM_OUT0, 0, 8)>, <NRF_PSEL(PWM_OUT1, 0, 13)>;
 		};
 	};
 };
@@ -139,4 +139,3 @@
 &ieee802154 {
 	status = "okay";
 };
-
