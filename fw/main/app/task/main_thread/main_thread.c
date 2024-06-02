@@ -1,14 +1,14 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
-#include "am2320/am2320.h"
 #include "fan4p/fan4p.h"
 #include "pms7003/pms7003.h"
+#include "sht4x/sht4x.h"
 #include "stled/stled.h"
 
 #include "zigbee.h"
 
-LOG_MODULE_REGISTER(main_thread, LOG_LEVEL_WRN);
+LOG_MODULE_REGISTER(main_thread, LOG_LEVEL_ERR);
 
 K_THREAD_STACK_DEFINE(main_thread_stack_area, 800);
 struct k_thread main_thread_data;
@@ -16,23 +16,19 @@ struct k_thread main_thread_data;
 typedef struct {
   zigbee_tz_data_t tz_data;
 
-  struct sht_data_t {
-    float temperature;
-    float humidity;
-  } sht_data;
+  sht4x_data_t sht4x_data;
   pms7003_data_t pms_data;
 } thread_data_t;
 
 static void s_main_thread(void *, void *, void *) {
   LOG_INF("main thread started");
-
   thread_data_t data = {0};
   for (;;) {
-    am2320_read(&data.sht_data.temperature, &data.sht_data.humidity);
-    data.tz_data.temperature = data.sht_data.temperature;
-    LOG_INF("temperature: %f", data.sht_data.temperature);
+    sht4x_get(&data.sht4x_data);
+    data.tz_data.temperature = data.sht4x_data.temperature;
+    LOG_INF("temperature: %f", data.sht4x_data.temperature);
     zigbee_tz_set(ZIGBEE_TZ_TEMPERATURE, data.tz_data);
-    data.tz_data.humidity = data.sht_data.humidity;
+    data.tz_data.humidity = data.sht4x_data.humidity;
     LOG_INF("humidity: %f", data.tz_data.humidity);
     zigbee_tz_set(ZIGBEE_TZ_HUMIDITY, data.tz_data);
 
